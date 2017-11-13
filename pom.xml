@@ -7,7 +7,7 @@
 
     <groupId>me.u6k.sample</groupId>
     <artifactId>sample-spring-social-twitter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>20171113</version>
     <packaging>jar</packaging>
 
     <name>sample-spring-social-twitter</name>
