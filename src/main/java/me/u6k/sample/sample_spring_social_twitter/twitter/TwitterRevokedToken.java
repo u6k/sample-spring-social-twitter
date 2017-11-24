@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.twitter;
 
 import org.springframework.social.ExpiredAuthorizationException;
@@ -22,9 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TwitterRevokedToken {
 
-	@RequestMapping("/twitter/revoked")
-	public void simulateExpiredToken() {
-		throw new ExpiredAuthorizationException("twitter");
-	}
-	
+    @RequestMapping("/twitter/revoked")
+    public void simulateExpiredToken() {
+        throw new ExpiredAuthorizationException("twitter");
+    }
+
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.twitter;
 
 import javax.inject.Inject;
@@ -26,23 +27,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TwitterFriendsController {
 
-	private final Twitter twitter;
-	
-	@Inject
-	public TwitterFriendsController(Twitter twitter) {
-		this.twitter = twitter;
-	}
-	
-	@RequestMapping(value="/twitter/friends", method=RequestMethod.GET)
-	public String friends(Model model) {
-		model.addAttribute("profiles", twitter.friendOperations().getFriends());
-		return "twitter/friends";
-	}
+    private final Twitter twitter;
 
-	@RequestMapping(value="/twitter/followers", method=RequestMethod.GET)
-	public String followers(Model model) {
-		model.addAttribute("profiles", twitter.friendOperations().getFollowers());
-		return "twitter/friends";
-	}
+    @Inject
+    public TwitterFriendsController(Twitter twitter) {
+        this.twitter = twitter;
+    }
+
+    @RequestMapping(value = "/twitter/friends", method = RequestMethod.GET)
+    public String friends(Model model) {
+        model.addAttribute("profiles", twitter.friendOperations().getFriends());
+        return "twitter/friends";
+    }
+
+    @RequestMapping(value = "/twitter/followers", method = RequestMethod.GET)
+    public String followers(Model model) {
+        model.addAttribute("profiles", twitter.friendOperations().getFollowers());
+        return "twitter/friends";
+    }
 
 }

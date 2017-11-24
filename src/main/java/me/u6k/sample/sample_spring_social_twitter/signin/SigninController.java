@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.signin;
 
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SigninController {
 
-	@RequestMapping(value="/signin", method=RequestMethod.GET)
-	public void signin() {
-	}
+    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    public void signin() {
+    }
 
 }

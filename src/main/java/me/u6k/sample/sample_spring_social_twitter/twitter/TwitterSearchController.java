@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.twitter;
 
 import javax.inject.Inject;
@@ -27,17 +28,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class TwitterSearchController {
 
-	private final Twitter twitter;
-	
-	@Inject
-	public TwitterSearchController(Twitter twitter) {
-		this.twitter = twitter;
-	}
+    private final Twitter twitter;
 
-	@RequestMapping(value="/twitter/search", method=RequestMethod.GET)
-	public String showTrends(@RequestParam("query") String query, Model model) {
-		model.addAttribute("timeline", twitter.searchOperations().search(query).getTweets());
-		return "twitter/timeline";
-	}
-	
+    @Inject
+    public TwitterSearchController(Twitter twitter) {
+        this.twitter = twitter;
+    }
+
+    @RequestMapping(value = "/twitter/search", method = RequestMethod.GET)
+    public String showTrends(@RequestParam("query") String query, Model model) {
+        model.addAttribute("timeline", twitter.searchOperations().search(query).getTweets());
+        return "twitter/timeline";
+    }
+
 }

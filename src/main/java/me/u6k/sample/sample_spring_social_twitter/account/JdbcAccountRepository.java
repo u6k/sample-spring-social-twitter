@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.account;
 
 import java.sql.ResultSet;
@@ -30,36 +31,37 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class JdbcAccountRepository implements AccountRepository {
 
-	private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-	private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-	@Inject
-	public JdbcAccountRepository(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
-		this.jdbcTemplate = jdbcTemplate;
-		this.passwordEncoder = passwordEncoder;
-	}
+    @Inject
+    public JdbcAccountRepository(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-	@Transactional
-	public void createAccount(Account user) throws UsernameAlreadyInUseException {
-		try {
-			jdbcTemplate.update(
-					"insert into Account (firstName, lastName, username, password) values (?, ?, ?, ?)",
-					user.getFirstName(), user.getLastName(), user.getUsername(),
-					passwordEncoder.encode(user.getPassword()));
-		} catch (DuplicateKeyException e) {
-			throw new UsernameAlreadyInUseException(user.getUsername());
-		}
-	}
+    @Transactional
+    public void createAccount(Account user) throws UsernameAlreadyInUseException {
+        try {
+            jdbcTemplate.update(
+                "insert into Account (firstName, lastName, username, password) values (?, ?, ?, ?)",
+                user.getFirstName(), user.getLastName(), user.getUsername(),
+                passwordEncoder.encode(user.getPassword()));
+        } catch (DuplicateKeyException e) {
+            throw new UsernameAlreadyInUseException(user.getUsername());
+        }
+    }
 
-	public Account findAccountByUsername(String username) {
-		return jdbcTemplate.queryForObject("select username, firstName, lastName from Account where username = ?",
-				new RowMapper<Account>() {
-					public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
-						return new Account(rs.getString("username"), null, rs.getString("firstName"), rs
-								.getString("lastName"));
-					}
-				}, username);
-	}
+    public Account findAccountByUsername(String username) {
+        return jdbcTemplate.queryForObject("select username, firstName, lastName from Account where username = ?",
+            new RowMapper<Account>() {
+
+                public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Account(rs.getString("username"), null, rs.getString("firstName"), rs
+                        .getString("lastName"));
+                }
+            }, username);
+    }
 
 }

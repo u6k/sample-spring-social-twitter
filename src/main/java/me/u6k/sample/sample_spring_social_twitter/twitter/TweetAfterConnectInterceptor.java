@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.twitter;
 
 import org.springframework.social.DuplicateStatusException;
@@ -28,23 +29,24 @@ import org.springframework.web.context.request.WebRequest;
 @Component
 public class TweetAfterConnectInterceptor implements ConnectInterceptor<Twitter> {
 
-	public void preConnect(ConnectionFactory<Twitter> provider, MultiValueMap<String, String> parameters, WebRequest request) {
-		if (StringUtils.hasText(request.getParameter(POST_TWEET_PARAMETER))) {
-			request.setAttribute(POST_TWEET_ATTRIBUTE, Boolean.TRUE, WebRequest.SCOPE_SESSION);
-		}
-	}
+    public void preConnect(ConnectionFactory<Twitter> provider, MultiValueMap<String, String> parameters, WebRequest request) {
+        if (StringUtils.hasText(request.getParameter(POST_TWEET_PARAMETER))) {
+            request.setAttribute(POST_TWEET_ATTRIBUTE, Boolean.TRUE, WebRequest.SCOPE_SESSION);
+        }
+    }
 
-	public void postConnect(Connection<Twitter> connection, WebRequest request) {
-		if (request.getAttribute(POST_TWEET_ATTRIBUTE, WebRequest.SCOPE_SESSION) != null) {
-			try {
-				connection.updateStatus("I've connected with the Spring Social Showcase!");
-			} catch (DuplicateStatusException e) {
-			}
-			request.removeAttribute(POST_TWEET_ATTRIBUTE, WebRequest.SCOPE_SESSION);
-		}
-	}
+    public void postConnect(Connection<Twitter> connection, WebRequest request) {
+        if (request.getAttribute(POST_TWEET_ATTRIBUTE, WebRequest.SCOPE_SESSION) != null) {
+            try {
+                connection.updateStatus("I've connected with the Spring Social Showcase!");
+            } catch (DuplicateStatusException e) {
+            }
+            request.removeAttribute(POST_TWEET_ATTRIBUTE, WebRequest.SCOPE_SESSION);
+        }
+    }
 
-	private static final String POST_TWEET_PARAMETER = "postTweet";
+    private static final String POST_TWEET_PARAMETER = "postTweet";
 
-	private static final String POST_TWEET_ATTRIBUTE = "twitterConnect." + POST_TWEET_PARAMETER;
+    private static final String POST_TWEET_ATTRIBUTE = "twitterConnect." + POST_TWEET_PARAMETER;
+
 }

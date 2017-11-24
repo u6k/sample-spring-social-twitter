@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.twitter;
 
 import java.security.Principal;
@@ -30,17 +31,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TwitterProfileController {
 
-	@Inject
-	private ConnectionRepository connectionRepository;
-	
-	@RequestMapping(value="/twitter", method=RequestMethod.GET)
-	public String home(Principal currentUser, Model model) {
-		Connection<Twitter> connection = connectionRepository.findPrimaryConnection(Twitter.class);
-		if (connection == null) {
-			return "redirect:/connect/twitter";
-		}
-		model.addAttribute("profile", connection.getApi().userOperations().getUserProfile());
-		return "twitter/profile";
-	}
-	
+    @Inject
+    private ConnectionRepository connectionRepository;
+
+    @RequestMapping(value = "/twitter", method = RequestMethod.GET)
+    public String home(Principal currentUser, Model model) {
+        Connection<Twitter> connection = connectionRepository.findPrimaryConnection(Twitter.class);
+        if (connection == null) {
+            return "redirect:/connect/twitter";
+        }
+        model.addAttribute("profile", connection.getApi().userOperations().getUserProfile());
+        return "twitter/profile";
+    }
+
 }

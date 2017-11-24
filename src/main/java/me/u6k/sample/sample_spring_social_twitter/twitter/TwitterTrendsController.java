@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.twitter;
 
 import javax.inject.Inject;
@@ -25,21 +26,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class TwitterTrendsController {
-	
-	// Yahoo Where On Earth ID representing the entire world
-	private static final long WORLDWIDE_WOE = 1L;
-	
-	private final Twitter twitter;
 
-	@Inject
-	public TwitterTrendsController(Twitter twitter) {
-		this.twitter = twitter;
-	}
+    // Yahoo Where On Earth ID representing the entire world
+    private static final long WORLDWIDE_WOE = 1L;
 
-	@RequestMapping(value="/twitter/trends", method=RequestMethod.GET)
-	public String showTrends(Model model) {
-		model.addAttribute("trends", twitter.searchOperations().getLocalTrends(WORLDWIDE_WOE));
-		return "twitter/trends";
-	}
-	
+    private final Twitter twitter;
+
+    @Inject
+    public TwitterTrendsController(Twitter twitter) {
+        this.twitter = twitter;
+    }
+
+    @RequestMapping(value = "/twitter/trends", method = RequestMethod.GET)
+    public String showTrends(Model model) {
+        model.addAttribute("trends", twitter.searchOperations().getLocalTrends(WORLDWIDE_WOE));
+        return "twitter/trends";
+    }
+
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.facebook;
 
 import org.springframework.social.ApiException;
@@ -28,24 +29,25 @@ import org.springframework.web.context.request.WebRequest;
 @Component
 public class PostToWallAfterConnectInterceptor implements ConnectInterceptor<Facebook> {
 
-	public void preConnect(ConnectionFactory<Facebook> connectionFactory, MultiValueMap<String, String> parameters, WebRequest request) {
-		if (StringUtils.hasText(request.getParameter(POST_TO_WALL_PARAMETER))) {
-			request.setAttribute(POST_TO_WALL_ATTRIBUTE, Boolean.TRUE, WebRequest.SCOPE_SESSION);
-		}
-	}
+    public void preConnect(ConnectionFactory<Facebook> connectionFactory, MultiValueMap<String, String> parameters, WebRequest request) {
+        if (StringUtils.hasText(request.getParameter(POST_TO_WALL_PARAMETER))) {
+            request.setAttribute(POST_TO_WALL_ATTRIBUTE, Boolean.TRUE, WebRequest.SCOPE_SESSION);
+        }
+    }
 
-	public void postConnect(Connection<Facebook> connection, WebRequest request) {
-		if (request.getAttribute(POST_TO_WALL_ATTRIBUTE, WebRequest.SCOPE_SESSION) != null) {
-			try {
-				connection.updateStatus("I've connected with the Spring Social Showcase!");
-			} catch (ApiException e) {
-				// Do nothing: No need to break down if the post-connect post can't be made.
-			}
-			request.removeAttribute(POST_TO_WALL_ATTRIBUTE, WebRequest.SCOPE_SESSION);
-		}
-	}
+    public void postConnect(Connection<Facebook> connection, WebRequest request) {
+        if (request.getAttribute(POST_TO_WALL_ATTRIBUTE, WebRequest.SCOPE_SESSION) != null) {
+            try {
+                connection.updateStatus("I've connected with the Spring Social Showcase!");
+            } catch (ApiException e) {
+                // Do nothing: No need to break down if the post-connect post can't be made.
+            }
+            request.removeAttribute(POST_TO_WALL_ATTRIBUTE, WebRequest.SCOPE_SESSION);
+        }
+    }
 
-	private static final String POST_TO_WALL_PARAMETER = "postToWall";
+    private static final String POST_TO_WALL_PARAMETER = "postToWall";
 
-	private static final String POST_TO_WALL_ATTRIBUTE = "facebookConnect." + POST_TO_WALL_PARAMETER;
+    private static final String POST_TO_WALL_ATTRIBUTE = "facebookConnect." + POST_TO_WALL_PARAMETER;
+
 }

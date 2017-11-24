@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package me.u6k.sample.sample_spring_social_twitter.facebook;
 
 import javax.inject.Inject;
@@ -26,17 +27,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class FacebookFriendsController {
 
-	private final Facebook facebook;
+    private final Facebook facebook;
 
-	@Inject
-	public FacebookFriendsController(Facebook facebook) {
-		this.facebook = facebook;
-	}
+    @Inject
+    public FacebookFriendsController(Facebook facebook) {
+        this.facebook = facebook;
+    }
 
-	@RequestMapping(value="/facebook/friends", method=RequestMethod.GET)
-	public String showFeed(Model model) {
-		model.addAttribute("friends", facebook.friendOperations().getFriendProfiles());
-		return "facebook/friends";
-	}
-	
+    @RequestMapping(value = "/facebook/friends", method = RequestMethod.GET)
+    public String showFeed(Model model) {
+        model.addAttribute("friends", facebook.friendOperations().getFriendProfiles());
+        return "facebook/friends";
+    }
+
 }
