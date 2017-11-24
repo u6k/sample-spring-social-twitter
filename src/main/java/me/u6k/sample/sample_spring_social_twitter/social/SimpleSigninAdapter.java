@@ -1,12 +1,12 @@
 
 package me.u6k.sample.sample_spring_social_twitter.social;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -19,7 +19,7 @@ public class SimpleSigninAdapter implements SignInAdapter {
 
     private final RequestCache requestCache;
 
-    @Inject
+    @Autowired
     public SimpleSigninAdapter(RequestCache requestCache) {
         log.trace("#ctor: start");
 
