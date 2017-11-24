@@ -1,9 +1,8 @@
 
 package me.u6k.sample.sample_spring_social_twitter.controller;
 
-import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TwitterFriendsController {
 
-    private final Twitter twitter;
-
-    @Inject
-    public TwitterFriendsController(Twitter twitter) {
-        log.trace("#ctor: start");
-
-        this.twitter = twitter;
-
-        log.trace("#ctor: end");
-    }
+    @Autowired
+    private Twitter twitter;
 
     @RequestMapping(value = "/twitter/friends", method = RequestMethod.GET)
     public String friends(Model model) {

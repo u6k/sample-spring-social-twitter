@@ -1,7 +1,6 @@
 
 package me.u6k.sample.sample_spring_social_twitter.controller;
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +10,7 @@ import me.u6k.sample.sample_spring_social_twitter.model.AccountRepository;
 import me.u6k.sample.sample_spring_social_twitter.social.SigninUtils;
 import me.u6k.sample.sample_spring_social_twitter.web.Message;
 import me.u6k.sample.sample_spring_social_twitter.web.MessageType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
@@ -30,10 +30,8 @@ public class SignupController {
 
     private final ProviderSignInUtils providerSignInUtils;
 
-    @Inject
-    public SignupController(AccountRepository accountRepository,
-        ConnectionFactoryLocator connectionFactoryLocator,
-        UsersConnectionRepository connectionRepository) {
+    @Autowired
+    public SignupController(AccountRepository accountRepository, ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository connectionRepository) {
         log.trace("#ctor: start");
 
         this.accountRepository = accountRepository;

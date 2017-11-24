@@ -1,9 +1,8 @@
 
 package me.u6k.sample.sample_spring_social_twitter.controller;
 
-import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class FacebookFeedController {
 
-    private final Facebook facebook;
-
-    @Inject
-    public FacebookFeedController(Facebook facebook) {
-        log.trace("#ctor: start");
-
-        this.facebook = facebook;
-
-        log.trace("#ctor: end");
-    }
+    @Autowired
+    private Facebook facebook;
 
     @RequestMapping(value = "/facebook/feed", method = RequestMethod.GET)
     public String showFeed(Model model) {

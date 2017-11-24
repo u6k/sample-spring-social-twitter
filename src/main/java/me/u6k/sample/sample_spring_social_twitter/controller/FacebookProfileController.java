@@ -1,9 +1,8 @@
 
 package me.u6k.sample.sample_spring_social_twitter.controller;
 
-import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class FacebookProfileController {
 
-    @Inject
+    @Autowired
     private ConnectionRepository connectionRepository;
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)

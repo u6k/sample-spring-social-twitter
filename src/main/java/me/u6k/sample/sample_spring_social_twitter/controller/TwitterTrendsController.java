@@ -1,9 +1,8 @@
 
 package me.u6k.sample.sample_spring_social_twitter.controller;
 
-import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +15,8 @@ public class TwitterTrendsController {
 
     private static final long WORLDWIDE_WOE = 1L;
 
-    private final Twitter twitter;
-
-    @Inject
-    public TwitterTrendsController(Twitter twitter) {
-        log.trace("#ctor: start: twitter={}", twitter);
-
-        this.twitter = twitter;
-
-        log.trace("#ctor: end");
-    }
+    @Autowired
+    private Twitter twitter;
 
     @RequestMapping(value = "/twitter/trends", method = RequestMethod.GET)
     public String showTrends(Model model) {

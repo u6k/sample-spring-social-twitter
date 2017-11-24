@@ -1,7 +1,6 @@
 
 package me.u6k.sample.sample_spring_social_twitter.web;
 
-import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,7 @@ import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Inject
+    @Autowired
     private DataSource dataSource;
 
     @Autowired

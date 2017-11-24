@@ -4,10 +4,9 @@ package me.u6k.sample.sample_spring_social_twitter.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
 import me.u6k.sample.sample_spring_social_twitter.exception.UsernameAlreadyInUseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,19 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class JdbcAccountRepository implements AccountRepository {
 
-    private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-    private final PasswordEncoder passwordEncoder;
-
-    @Inject
-    public JdbcAccountRepository(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
-        log.trace("#ctor: start");
-
-        this.jdbcTemplate = jdbcTemplate;
-        this.passwordEncoder = passwordEncoder;
-
-        log.trace("#ctor: end");
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional
     public void createAccount(Account user) throws UsernameAlreadyInUseException {

@@ -1,9 +1,8 @@
 
 package me.u6k.sample.sample_spring_social_twitter.controller;
 
-import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class FacebookPhotosController {
 
-    private final Facebook facebook;
-
-    @Inject
-    public FacebookPhotosController(Facebook facebook) {
-        log.trace("#ctor: start");
-
-        this.facebook = facebook;
-
-        log.trace("#ctor: end");
-    }
+    @Autowired
+    private Facebook facebook;
 
     @RequestMapping(value = "/facebook/albums", method = RequestMethod.GET)
     public String showAlbums(Model model) {
