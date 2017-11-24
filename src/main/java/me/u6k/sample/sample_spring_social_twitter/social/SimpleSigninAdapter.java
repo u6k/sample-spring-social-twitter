@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -13,19 +14,30 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.web.context.request.NativeWebRequest;
 
+@Slf4j
 public class SimpleSigninAdapter implements SignInAdapter {
 
     private final RequestCache requestCache;
 
     @Inject
     public SimpleSigninAdapter(RequestCache requestCache) {
+        log.trace("#ctor: start");
+
         this.requestCache = requestCache;
+
+        log.trace("#ctor: end");
     }
 
     @Override
     public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
+        log.trace("#signIn: start: localUserId={}", localUserId);
+
         SigninUtils.signin(localUserId);
-        return extractOriginalUrl(request);
+        String result = extractOriginalUrl(request);
+
+        log.trace("#signIn: end: result={}", result);
+
+        return result;
     }
 
     private String extractOriginalUrl(NativeWebRequest request) {

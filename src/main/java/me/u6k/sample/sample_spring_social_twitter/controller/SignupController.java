@@ -4,6 +4,7 @@ package me.u6k.sample.sample_spring_social_twitter.controller;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
 import me.u6k.sample.sample_spring_social_twitter.exception.UsernameAlreadyInUseException;
 import me.u6k.sample.sample_spring_social_twitter.model.Account;
 import me.u6k.sample.sample_spring_social_twitter.model.AccountRepository;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 
+@Slf4j
 @Controller
 public class SignupController {
 
@@ -32,32 +34,57 @@ public class SignupController {
     public SignupController(AccountRepository accountRepository,
         ConnectionFactoryLocator connectionFactoryLocator,
         UsersConnectionRepository connectionRepository) {
+        log.trace("#ctor: start");
+
         this.accountRepository = accountRepository;
         this.providerSignInUtils = new ProviderSignInUtils(connectionFactoryLocator, connectionRepository);
+
+        log.trace("#ctor: end");
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public SignupForm signupForm(WebRequest request) {
+        log.trace("#signupForm: start");
+
+        SignupForm form;
+
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
         if (connection != null) {
+            log.trace("getConnectionFromSession != null");
             request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
-            return SignupForm.fromProviderUser(connection.fetchUserProfile());
+            form = SignupForm.fromProviderUser(connection.fetchUserProfile());
         } else {
-            return new SignupForm();
+            log.trace("getConnectionFromSession == null");
+            form = new SignupForm();
         }
+
+        log.trace("#signupForm: end: result={}", form);
+        return form;
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signup(@Valid SignupForm form, BindingResult formBinding, WebRequest request) {
+        log.trace("#signup: start: form={}", form);
+
         if (formBinding.hasErrors()) {
+            log.trace("form.hasErrors is true");
             return null;
         }
+
+        log.trace("createAccount: start");
         Account account = createAccount(form, formBinding);
+        log.trace("createAccount: success");
+
         if (account != null) {
+            log.trace("account != null");
             SigninUtils.signin(account.getUsername());
             providerSignInUtils.doPostSignUp(account.getUsername(), request);
+
+            log.trace("#signup: end: redirect:/");
             return "redirect:/";
         }
+
+        log.trace("#signup: end: null");
         return null;
     }
 

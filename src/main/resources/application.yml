@@ -6,3 +6,8 @@ spring:
     twitter:
       app-id: xxx
       app-secret: xxx
+
+logging:
+  level:
+    root: INFO
+    me.u6k: TRACE
