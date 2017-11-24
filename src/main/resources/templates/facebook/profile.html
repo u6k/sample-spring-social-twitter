@@ -11,21 +11,24 @@
     </div>
 
     <div id="content" layout:fragment="content">
-        <h3>Connected to Twitter</h3>
+        <h3>Your Facebook Profile</h3>
+        <p>
+            Hello, <span th:text="${profile.firstName}">first name</span>!
+        </p>
+        <dl>
+            <dt>Facebook ID:</dt>
+            <dd th:text="${profile.id}"></dd>
+            <dt>Name:</dt>
+            <dd th:text="${profile.name}"></dd>
+            <dt>Email:</dt>
+            <dd th:text="${email}"></dd>
+        </dl>
 
-        <form id="disconnect" method="post">
+        <form id="disconnect" th:action="@{/connect/facebook}" method="post">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-            <div class="formInfo">
-                <p>The Spring Social Showcase sample application is already connected to your Twitter account. Click the button if you wish to disconnect.</p>
-            </div>
-
-            <button type="submit">Disconnect</button>
+            <button type="submit">Disconnect from Facebook</button>
             <input type="hidden" name="_method" value="delete" />
         </form>
-
-        <p>
-            <a th:href="@{/twitter}">View your Twitter profile</a>
-        </p>
     </div>
 </body>
 </html>

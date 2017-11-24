@@ -1,0 +1,13 @@
+spring:
+  social:
+    facebook:
+      app-id: xxx
+      app-secret: xxx
+    twitter:
+      app-id: xxx
+      app-secret: xxx
+
+logging:
+  level:
+    root: INFO
+    me.u6k: TRACE
