@@ -1,6 +1,15 @@
 
 package me.u6k.sample.sample_spring_social_twitter.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
+@Getter
+@ToString
+@EqualsAndHashCode
+@RequiredArgsConstructor
 public class Account {
 
     private final String username;
@@ -10,28 +19,5 @@ public class Account {
     private final String firstName;
 
     private final String lastName;
-
-    public Account(String username, String password, String firstName, String lastName) {
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
 
 }
