@@ -1,0 +1,8 @@
+spring:
+  social:
+    facebook:
+      app-id: xxx
+      app-secret: xxx
+    twitter:
+      app-id: xxx
+      app-secret: xxx
